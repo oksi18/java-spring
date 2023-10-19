@@ -1,7 +1,9 @@
 package services;
 
 
+import dto.CarDto;
 import lombok.RequiredArgsConstructor;
+import mapper.CarMapper;
 import models.Car;
 import org.springframework.stereotype.Service;
 import repositories.CarRepository;
@@ -13,28 +15,29 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CarService {
     private final CarRepository carRepository;
+    private final CarMapper carMapper;
 
-    public List<Car> getAll() {
-        return this.carRepository.findAll();
+    public List<CarDto> getAll() {
+        return this.carRepository.findAll().stream().map(carMapper::toDto).toList();
     }
 
-    public Optional<Car> getById(int id){
-        return this.carRepository.findById(id);
+    public Optional<CarDto> getById(int id){
+        return this.carRepository.findById(id).stream().map(carMapper::toDto).findFirst();
     }
 
     public void deleteById(int id) {
         this.carRepository.deleteById(id);
     }
 
-    public Car create(Car car){
-        return this.carRepository.save(car);
+    public CarDto create(CarDto carDto){
+        return carMapper.toDto(this.carRepository.save(carMapper.toEntity(carDto)));
     }
 
-    public List<Car> getByProducer(String producer){
-        return this.carRepository.findAllByProducer(producer);
+    public List<CarDto> getByProducer(String producer){
+        return this.carRepository.findAllByProducer(producer).stream().map(carMapper::toDto).toList();
     }
 
-    public List<Car> getByPower(int power){
-        return this.carRepository.findAllByPower(power);
+    public List<CarDto> getByPower(int power){
+        return this.carRepository.findAllByPower(power).stream().map(carMapper::toDto).toList();
     }
 }

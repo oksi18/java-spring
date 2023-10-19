@@ -1,7 +1,10 @@
 package controllers;
 
+import dto.CarDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import models.Car;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import repositories.CarRepository;
@@ -17,32 +20,33 @@ public class CarController  {
     private final CarRepository carRepository;
 
     @GetMapping
-    public ResponseEntity<List<Car>> getAll(){
+    public ResponseEntity<List<CarDto>> getAll(){
         return ResponseEntity.ok(this.carService.getAll());
     }
 
     @PostMapping
-    public ResponseEntity<Car> create(@RequestBody Car car){
-        return ResponseEntity.ok(this.carService.create(car));
+    public ResponseEntity<CarDto> create(@RequestBody @Valid CarDto car){
+        return  ResponseEntity.status(HttpStatus.CREATED).body(this.carService.create(car));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Car> getById(@PathVariable int id){
+    public ResponseEntity<CarDto> getById(@PathVariable int id){
         return ResponseEntity.of(this.carService.getById(id));
     }
 
-    @GetMapping("{id}")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable int id){
         this.carService.deleteById(id);
     }
 
     @GetMapping("/power/{value}")
-    public  ResponseEntity<List<Car>> getByPower(@PathVariable int value){
+    public  ResponseEntity<List<CarDto>> getByPower(@PathVariable int value){
         return ResponseEntity.ok(this.carService.getByPower(value));
     }
 
     @GetMapping("/producer/{value}")
-    public  ResponseEntity<List<Car>> getByProducer(@PathVariable String    value){
+    public  ResponseEntity<List<CarDto>> getByProducer(@PathVariable String    value){
         return ResponseEntity.ok(this.carService.getByProducer(value));
     }
 }
