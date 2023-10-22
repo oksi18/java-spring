@@ -1,8 +1,10 @@
-package mapper;
+package com.example.sep2022javaspring.mapper;
 
-import dto.CarDto;
-import models.Car;
+import com.example.sep2022javaspring.dto.CarDto;
+import com.example.sep2022javaspring.models.Car;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CarMapper {
     public CarDto toDto(Car car){
         return CarDto.builder()

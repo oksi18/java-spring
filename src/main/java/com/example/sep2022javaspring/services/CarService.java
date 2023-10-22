@@ -1,12 +1,11 @@
-package services;
+package com.example.sep2022javaspring.services;
 
 
-import dto.CarDto;
+import com.example.sep2022javaspring.dto.CarDto;
 import lombok.RequiredArgsConstructor;
-import mapper.CarMapper;
-import models.Car;
+import com.example.sep2022javaspring.mapper.CarMapper;
 import org.springframework.stereotype.Service;
-import repositories.CarRepository;
+import com.example.sep2022javaspring.repositories.CarRepository;
 
 import java.util.List;
 import java.util.Optional;

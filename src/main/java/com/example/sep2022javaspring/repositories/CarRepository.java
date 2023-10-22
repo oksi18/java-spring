@@ -1,6 +1,6 @@
-package repositories;
+package com.example.sep2022javaspring.repositories;
 
-import models.Car;
+import com.example.sep2022javaspring.models.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

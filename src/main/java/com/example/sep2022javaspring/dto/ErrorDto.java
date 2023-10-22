@@ -1,4 +1,4 @@
-package com.example.mar2023spring.dto;
+package com.example.sep2022javaspring.dto;
 
 import lombok.Builder;
 import lombok.Data;

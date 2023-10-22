@@ -1,6 +1,6 @@
-package com.example.mar2023spring.controllers;
+package com.example.sep2022javaspring.controllers;
 
-import com.example.mar2023spring.dto.ErrorDto;
+import com.example.sep2022javaspring.dto.ErrorDto;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-
-import java.util.List;
 
 @RestControllerAdvice
 public class ErrorController {
