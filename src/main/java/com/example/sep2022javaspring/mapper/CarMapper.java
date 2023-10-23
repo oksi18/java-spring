@@ -12,6 +12,7 @@ public class CarMapper {
                 .model(car.getModel())
                 .power(car.getPower())
                 .producer(car.getProducer())
+                .photo(car.getPhoto())
                 .build();
     }
 

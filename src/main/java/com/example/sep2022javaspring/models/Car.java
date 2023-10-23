@@ -14,6 +14,7 @@ public class Car {
     private String model;
     private int power;
     private String producer;
+    private String photo;
 
 }
 

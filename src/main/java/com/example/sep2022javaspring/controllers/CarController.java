@@ -5,11 +5,13 @@ import com.example.sep2022javaspring.views.View;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.sep2022javaspring.repositories.CarRepository;
 import com.example.sep2022javaspring.services.CarService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -54,4 +56,12 @@ public class CarController  {
     public  ResponseEntity<List<CarDto>> getByProducer(@PathVariable String    value){
         return ResponseEntity.ok(this.carService.getByProducer(value));
     }
+
+    @SneakyThrows
+    @JsonView(View.Level1.class)
+    @PostMapping("/{id}/photo")
+    public ResponseEntity<CarDto> addPhotoToCarById(@PathVariable int id,   MultipartFile photo){
+        return ResponseEntity.ok(this.carService.addPhotoByCarId(id, photo));
+    }
+
 }
