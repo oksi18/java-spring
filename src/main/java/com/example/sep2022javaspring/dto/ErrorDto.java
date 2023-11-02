@@ -9,4 +9,6 @@ import java.util.List;
 @Builder
 public class ErrorDto {
     private List<String> messages;
+
+    private int statusCode;
 }
