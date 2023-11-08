@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.Duration;
 import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class JwtServiceImpl implements JwtService{
 
-    @Value("S{jwt.signedKey}")
+    @Value("${jwt.signedKey}")
     private String signedKey;
     private Key key;
 
@@ -45,11 +46,20 @@ public class JwtServiceImpl implements JwtService{
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" , "));
+        return generateToken(Map.of("roles", roles), userDetails, Duration.ofSeconds(30));
+    }
+
+    @Override
+    public String generateRefreshToken(UserDetails userDetails) {
+        return generateToken(Map.of("type", "refresh"), userDetails, Duration.ofDays(2));
+    }
+
+    private String generateToken(Map<String, String> claims, UserDetails userDetails, Duration duration) {
         return Jwts.builder()
-                .setClaims(Map.of("roles", roles))
+                .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date (System.currentTimeMillis() + 60 * 60 * 1000))
+                .setExpiration(new Date (System.currentTimeMillis() + duration.toMillis()))
                 .compact();
     }
 

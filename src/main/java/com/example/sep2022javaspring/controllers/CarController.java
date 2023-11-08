@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import com.example.sep2022javaspring.repositories.CarRepository;
 import com.example.sep2022javaspring.services.CarService;
@@ -28,7 +29,8 @@ public class CarController  {
         return ResponseEntity.ok(this.carService.getAll());
     }
 
-    @PostMapping
+    @Secured("ROLE_SELLER")
+    @PostMapping 
     public ResponseEntity<CarDto> create(@RequestBody @Valid CarDto car){
         return  ResponseEntity.status(HttpStatus.CREATED).body(this.carService.create(car));
     }
