@@ -77,7 +77,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) //CSRF is a security vulnerability that can allow an attacker to perform actions on behalf of an authenticated user without their consent.
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class )

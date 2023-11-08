@@ -31,8 +31,10 @@ public class CarController  {
 
     @Secured("ROLE_SELLER")
     @PostMapping 
-    public ResponseEntity<CarDto> create(@RequestBody @Valid CarDto car){
-        return  ResponseEntity.status(HttpStatus.CREATED).body(this.carService.create(car));
+    public ResponseEntity<CarDto> create(@RequestBody @Valid CarDto carDto){
+        CarDto car = carService.create(carDto);
+        return ResponseEntity.ok(car);
+
     }
 
     @JsonView(View.Level1.class  )
